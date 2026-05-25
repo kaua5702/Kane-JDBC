@@ -26,6 +26,7 @@ public class ContatoDAO {
             pstmt.setDate(3, new Date(contato.getDataCadastro().getTime()));
 
             pstmt.execute();
+            System.out.println("Contato salvo com sucesso!");
 
         } catch (Exception e) {
             e.printStackTrace();
