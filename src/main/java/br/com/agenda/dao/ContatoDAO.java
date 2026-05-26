@@ -3,10 +3,9 @@ package br.com.agenda.dao;
 import br.com.agenda.factory.ConnectionFactory;
 import br.com.agenda.model.Contato;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContatoDAO {
 
@@ -45,5 +44,55 @@ public class ContatoDAO {
                 e.printStackTrace();
             }
         }
+    }
+
+    public List<Contato> getContatos() {
+
+        String sql = "SELECT * FROM contatos";
+
+        List<Contato> contatos = new ArrayList<>();
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+
+        try {
+            conn = ConnectionFactory.createConnectionToMySQL();
+
+            pstmt = conn.prepareStatement(sql);
+
+            rset = pstmt.executeQuery();
+
+            while (rset.next()) {
+                Contato contato = new Contato();
+
+                contato.setId(rset.getInt("id"));
+                contato.setNome(rset.getString("nome"));
+                contato.setIdade(rset.getInt("idade"));
+                contato.setDataCadastro(rset.getDate("dataCadastro"));
+
+                contatos.add(contato);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (rset != null) {
+                    rset.close();
+                }
+
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return contatos;
     }
 }
