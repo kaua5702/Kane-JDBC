@@ -47,6 +47,7 @@ public class ContatoDAO {
     }
 
     public void update(Contato contato) throws SQLException {
+
         String sql = "UPDATE contatos SET nome = ?, idade = ?, dataCadastro = ? WHERE id = ?";
 
         Connection conn = null;
@@ -83,6 +84,42 @@ public class ContatoDAO {
             }
 
 
+        }
+    }
+
+    public void deleteById(int id) throws SQLException {
+
+        String sql = "DELETE FROM contatos WHERE id = ?";
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+
+            conn = ConnectionFactory.createConnectionToMySQL();
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setInt(1, id);
+            pstmt.execute();
+            System.out.println("Contato deletado com sucesso!");
+            System.out.println();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        } finally {
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+
+                if (conn != null) {
+                    conn.close();
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

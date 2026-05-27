@@ -13,7 +13,7 @@ public class Main {
         ContatoDAO contatoDAO = new ContatoDAO();
 
         Contato contato = new Contato();
-        contato.setNome("Gustavo R");
+        contato.setNome("Maria Gabriela");
         contato.setIdade(54);
         contato.setDataCadastro(new Date());
 
@@ -21,12 +21,14 @@ public class Main {
         //System.out.println("");
 
         Contato c1 = new Contato();
-        c1.setNome("Gustavo Radcheski");
+        c1.setNome("Maria Gabriela Diaz");
         c1.setIdade(37);
         c1.setDataCadastro(new Date());
         c1.setId(5);
 
-        contatoDAO.update(c1);
+        //contatoDAO.update(c1);
+
+        contatoDAO.deleteById(5);
 
 
         for (Contato c : contatoDAO.getContatos()) {
