@@ -17,8 +17,17 @@ public class Main {
         contato.setIdade(54);
         contato.setDataCadastro(new Date());
 
-        contatoDAO.save(contato);
-        System.out.println("");
+        //contatoDAO.save(contato);
+        //System.out.println("");
+
+        Contato c1 = new Contato();
+        c1.setNome("Gustavo Radcheski");
+        c1.setIdade(37);
+        c1.setDataCadastro(new Date());
+        c1.setId(5);
+
+        contatoDAO.update(c1);
+
 
         for (Contato c : contatoDAO.getContatos()) {
             System.out.println("Contato: " + c.getNome());
